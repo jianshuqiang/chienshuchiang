@@ -7,8 +7,9 @@ public class Solution_3_28 {
         int len = A.length;
         if (len == 3) return 1;
         int l = 1, r = len - 2;
+        int m = 0;
         while (l < r) {
-            int m = l + ((r - l) >> 1);
+            m = l + ((r - l) >> 1);
             if (A[m] < A[m - 1]) 
                 r = m - 1;                
             else if (A[m] > A[m + 1]) 

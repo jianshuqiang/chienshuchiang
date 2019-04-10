@@ -1,0 +1,32 @@
+public class Solution {
+    /**
+     * @param A: an integer array
+     * @return: nothing
+     */
+    public void sortIntegers2(int[] A) {
+        // write your code here
+        mergeSort(A, 0, A.length - 1, new int[A.length]);
+    }
+    
+    public void mergeSort (int[] A, int left, int right, int[] ans) {
+        if (left >= right) return;
+        int m = ((right - left) >> 1) + left;
+        mergeSort(A, left, m, ans);
+        mergeSort(A, m + 1, right, ans);
+        doMergeSort(A, left, m, right, ans);
+    }
+    
+    public void doMergeSort (int[] A, int left, int mid, int right, int[] ans) {
+        int m = mid + 1, l = left, lenOfAns = 0;
+        while (l <= mid && m <= right) 
+            ans[lenOfAns++] = A[m] > A[l] ? A[l++] : A[m++];
+        
+        if (m <= right)
+            while (m <= right)
+                ans[lenOfAns++] = A[m++];
+        else 
+            while (l <= mid)
+                ans[lenOfAns++] = A[l++];
+        System.arraycopy(ans, 0, A, left, right - left + 1);
+    }
+}

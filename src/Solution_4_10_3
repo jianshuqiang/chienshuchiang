@@ -1,0 +1,37 @@
+public class Solution {
+    /**
+     * @param A: an integer array
+     * @return: nothing
+     */
+    public void sortIntegers2(int[] A) {
+        // write your code here
+        for (int i = ((A.length - 1) >> 1); i >= 0; i--) {
+            heapAdjust(A, i, A.length);
+        }
+        
+        for (int i = A.length - 1; i > 0; i--) {
+            swap(A, 0, i);
+            heapAdjust(A, 0, i);
+        }
+    }
+    
+    public void heapAdjust (int[] A, int tar, int deep) {
+        int key = A[tar];
+        for (int k = 2 * tar + 1; k < deep; k = 2 * k + 1) {
+            if (k + 1 < deep && A[k] < A[k + 1]) k++;
+            if (A[k] > key) {
+                A[tar] = A[k];
+                tar = k;
+            } else {
+                break;
+            }
+        }
+        A[tar] = key;
+    }
+    
+    public void swap (int[] A, int i, int j) {
+        int tmp = A[i];
+        A[i] = A[j];
+        A[j] = tmp;
+    }
+}

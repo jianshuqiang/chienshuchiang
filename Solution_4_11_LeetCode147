@@ -1,0 +1,46 @@
+/** 对链表进行插入排序。
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if (head == null) return head;
+        ListNode ans = new ListNode(0);
+        ans.next = head;
+        ListNode tmp = ans.next;
+        while (tmp.next != null) {
+            if (tmp.next.val >= tmp.val){
+                tmp = tmp.next;
+            } else {
+                ListNode insertNode = tmp.next;
+                tmp.next = tmp.next.next;
+                ans.next = help (ans.next, insertNode);
+            }
+        }
+        return ans.next;
+    }
+    
+    public ListNode help(ListNode head, ListNode insertNode) {
+        if (insertNode.val <= head.val) {
+            insertNode.next = head;
+            return insertNode;
+        }
+        ListNode tmp = head;
+        while (tmp.next != null) {
+            if (tmp.next.val >= insertNode.val) {
+                insertNode.next = tmp.next;
+                tmp.next = insertNode;
+                return head;
+            } else {
+                tmp = tmp.next;
+            }
+        }
+        tmp.next = insertNode;
+        return head;
+    }
+    
+}

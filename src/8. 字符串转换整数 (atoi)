@@ -1,0 +1,37 @@
+class Solution {
+    
+    public int myAtoi(String str) {
+        char[] c = str.toCharArray();
+        int sign = 1;
+        long ans = 0;     
+        for (int i = 0; i < c.length; i++) {
+            if (c[i] == ' ')
+                continue;
+            if (c[i] == '-') {
+                sign = -1;
+                i++;
+            } else if (c[i] == '+')
+                i++;
+            for (int j = i; j < c.length; j++) {
+                int tmp = changeCharToInt(c[j]);
+                if (tmp >= 0) {
+                    ans = ans * 10 + tmp;
+                    if ((ans >>> 31) > 0)
+						break;
+                } else break;                
+            }
+            break;
+        }
+        if (sign >= 0)
+            return ans > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int)ans;
+        else {
+            ans *= sign;
+            return ans < Integer.MIN_VALUE ? Integer.MIN_VALUE : (int)ans;
+        }
+    }
+    
+    public int changeCharToInt (char c) {
+        int tmp = c - '0';
+        return (tmp < 10 && tmp >= 0) ? tmp : -1;
+    }
+}
